@@ -22,23 +22,17 @@ namespace WindowsFormsApp1
 
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void btnAgregar_Click(object sender, EventArgs e)
         {
+            string dni = txtDNI.Text;
+            string nombre = txtNombre.Text;
+            string apellido = txtApellido.Text;
+            string direccion = txtDireccion.Text;
+            string telefono = txtTelefono.Text;
+            string email = txtEmail.Text;
+            string fec_nac = dtpFechaNac.Value.ToString("dd/MM/yyyy");
 
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
+            dgvUsuarios.Rows.Add("", dni, nombre, apellido, direccion, telefono, email, fec_nac, "");
 
         }
     }
