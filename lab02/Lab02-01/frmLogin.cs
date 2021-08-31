@@ -57,6 +57,7 @@ namespace Lab02_01
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+
         }
 
         private void txtPassword_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
