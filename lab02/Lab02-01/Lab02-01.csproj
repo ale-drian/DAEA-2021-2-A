@@ -52,11 +52,33 @@
     <Compile Include="EjemploMDI.Designer.cs">
       <DependentUpon>EjemploMDI.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmLogin.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="frmLogin.cs" />
     <Compile Include="frmLogin.Designer.cs">
       <DependentUpon>frmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="manCategoria.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="manCategoria.Designer.cs">
+      <DependentUpon>manCategoria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="manCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="manCliente.Designer.cs">
+      <DependentUpon>manCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="manProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="manProducto.Designer.cs">
+      <DependentUpon>manProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="manProveedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="manProveedor.Designer.cs">
+      <DependentUpon>manProveedor.cs</DependentUpon>
     </Compile>
     <Compile Include="manUsuario.cs">
       <SubType>Form</SubType>
@@ -77,6 +99,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="manCategoria.resx">
+      <DependentUpon>manCategoria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="manCliente.resx">
+      <DependentUpon>manCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="manProducto.resx">
+      <DependentUpon>manProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="manProveedor.resx">
+      <DependentUpon>manProveedor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="manUsuario.resx">
       <DependentUpon>manUsuario.cs</DependentUpon>
