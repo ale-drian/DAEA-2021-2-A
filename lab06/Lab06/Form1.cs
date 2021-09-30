@@ -24,7 +24,7 @@ namespace Lab06
 
         private void ManPerson_Load(object sender, EventArgs e)
         {
-            String str = "Server=DESKTOP-1HN4GP8\\SQLEXPRESS2017;Database=School;Integrated Security=true";
+            String str = "Server=DESKTOP-LMO2I3Q\\LOCAL;Database=School;Integrated Security=true";
             con = new SqlConnection(str);
             con.Open();
         }
@@ -36,8 +36,10 @@ namespace Lab06
             SqlDataAdapter adapter = new SqlDataAdapter();
             adapter.SelectCommand = cmd;
 
+            ds = new DataSet();
             adapter.Fill(ds, "Person");
             tablePerson = ds.Tables["Person"];
+
             dgvListado.DataSource = tablePerson;
             dgvListado.Update();
             
@@ -59,8 +61,12 @@ namespace Lab06
             DataRow fila = tablePerson.NewRow();
             fila["FirstName"] = txtFirstName.Text;
             fila["LastName"] = txtLastName.Text;
-            fila["HireDate"] = txtHireDate.Text;
-            fila["EnrollmentDate"] = txtEnrollmentDate.Text;
+
+            if (txtHireDate.Checked == true)
+                fila["HireDate"] = txtHireDate.Text;
+
+            if (txtEnrollmentDate.Checked == true)
+                fila["EnrollmentDate"] = txtEnrollmentDate.Text;
 
             tablePerson.Rows.Add(fila);
             adapter.Update(tablePerson);
@@ -85,8 +91,10 @@ namespace Lab06
             DataRow[] fila = tablePerson.Select("PersonID='" + txtPersonID.Text + "'");
             fila[0]["FirstName"] = txtFirstName.Text;
             fila[0]["LastName"] = txtLastName.Text;
-            fila[0]["HireDate"] = txtHireDate.Text;
-            fila[0]["EnrollmentDate"] = txtEnrollmentDate.Text;
+            if (txtHireDate.Checked == true)
+                fila[0]["HireDate"] = txtHireDate.Text;
+            if (txtEnrollmentDate.Checked == true)
+                fila[0]["EnrollmentDate"] = txtEnrollmentDate.Text;
 
             adapter.Update(tablePerson);
         }
@@ -96,8 +104,8 @@ namespace Lab06
             if (dgvListado.SelectedRows.Count > 0)
             {
                 txtPersonID.Text = dgvListado.SelectedRows[0].Cells[0].Value.ToString();
-                txtFirstName.Text = dgvListado.SelectedRows[0].Cells[1].Value.ToString();
-                txtLastName.Text = dgvListado.SelectedRows[0].Cells[2].Value.ToString();
+                txtFirstName.Text = dgvListado.SelectedRows[0].Cells[2].Value.ToString();
+                txtLastName.Text = dgvListado.SelectedRows[0].Cells[1].Value.ToString();
                 String hireDate = dgvListado.SelectedRows[0].Cells[3].Value.ToString();
                 if (String.IsNullOrEmpty(hireDate))
                     txtHireDate.Checked = false;
@@ -116,9 +124,9 @@ namespace Lab06
         {
             string sp = "DeletePerson";
             SqlCommand cmd = new SqlCommand(sp, con);
-            // cmd.Parameters.Add("@PersonID", SqlDbType.Int).SourceColumn = "PersonID";
+            cmd.Parameters.Add("@PersonID", SqlDbType.Int).SourceColumn = "PersonID";
 
-            cmd.Parameters.AddWithValue("@PersonID", txtPersonID.Text);
+            //cmd.Parameters.AddWithValue("@PersonID", txtPersonID.Text);
             SqlDataAdapter adapter = new SqlDataAdapter();
             adapter.DeleteCommand = cmd;
             adapter.DeleteCommand.CommandType = CommandType.StoredProcedure;
@@ -127,6 +135,98 @@ namespace Lab06
             
             tablePerson.Rows.Remove(fila[0]);
             adapter.Update(tablePerson);
+        }
+
+        private void btnBuscarCodigo_Click(object sender, EventArgs e)
+        {
+            String sp = "BuscarPersonaCodigo";
+            SqlCommand cmd = new SqlCommand(sp, con);
+
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            adapter.SelectCommand.CommandType = CommandType.StoredProcedure;
+            adapter.SelectCommand.Parameters.AddWithValue("@PersonID", txtPersonID.Text);
+
+            ds = new DataSet();
+            adapter.Fill(ds, "Person");
+            tablePerson = ds.Tables["Person"];
+
+            dgvListado.DataSource = tablePerson;
+            dgvListado.Update();
+
+        }
+
+        private void btnBuscarNombre_Click(object sender, EventArgs e)
+        {
+            String sp = "BuscarPersonaNombre";
+            SqlCommand cmd = new SqlCommand(sp, con);
+
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            adapter.SelectCommand.CommandType = CommandType.StoredProcedure;
+            adapter.SelectCommand.Parameters.AddWithValue("@FirstName", txtFirstName.Text);
+
+            ds = new DataSet();
+            adapter.Fill(ds, "Person");
+            tablePerson = ds.Tables["Person"];
+
+            dgvListado.DataSource = tablePerson;
+            dgvListado.Update();
+        }
+
+        private void btnBuscarApellido_Click(object sender, EventArgs e)
+        {
+            String sp = "BuscarPersonaApellido";
+            SqlCommand cmd = new SqlCommand(sp, con);
+
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            adapter.SelectCommand.CommandType = CommandType.StoredProcedure;
+            adapter.SelectCommand.Parameters.AddWithValue("@LastName", txtLastName.Text);
+
+            ds = new DataSet();
+            adapter.Fill(ds, "Person");
+            tablePerson = ds.Tables["Person"];
+
+            dgvListado.DataSource = tablePerson;
+            dgvListado.Update();
+        }
+
+        private void btnBuscarContrato_Click(object sender, EventArgs e)
+        {
+            String sp = "BuscarPersonaContrato";
+            SqlCommand cmd = new SqlCommand(sp, con);
+
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            adapter.SelectCommand.CommandType = CommandType.StoredProcedure;
+            adapter.SelectCommand.Parameters.AddWithValue("@HireDate", Convert.ToDateTime(txtHireDate.Text));
+
+
+            ds = new DataSet();
+            adapter.Fill(ds, "Person");
+            tablePerson = ds.Tables["Person"];
+
+            dgvListado.DataSource = tablePerson;
+            dgvListado.Update();
+        }
+
+        private void btnBuscarInscripcion_Click(object sender, EventArgs e)
+        {
+            String sp = "BuscarPersonaInscripcion";
+            SqlCommand cmd = new SqlCommand(sp, con);
+
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            adapter.SelectCommand.CommandType = CommandType.StoredProcedure;
+            adapter.SelectCommand.Parameters.AddWithValue("@EnrollmentDate", Convert.ToDateTime(txtEnrollmentDate.Text));
+
+            ds = new DataSet();
+            adapter.Fill(ds, "Person");
+            tablePerson = ds.Tables["Person"];
+
+            dgvListado.DataSource = tablePerson;
+            dgvListado.Update();
         }
     }
 }

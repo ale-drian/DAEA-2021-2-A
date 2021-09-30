@@ -187,6 +187,7 @@ namespace Lab06
             this.btnBuscarCodigo.TabIndex = 3;
             this.btnBuscarCodigo.Text = "Buscar Código";
             this.btnBuscarCodigo.UseVisualStyleBackColor = true;
+            this.btnBuscarCodigo.Click += new System.EventHandler(this.btnBuscarCodigo_Click);
             // 
             // btnInsertar
             // 
@@ -226,6 +227,7 @@ namespace Lab06
             this.btnBuscarNombre.TabIndex = 7;
             this.btnBuscarNombre.Text = "Buscar Nombre";
             this.btnBuscarNombre.UseVisualStyleBackColor = true;
+            this.btnBuscarNombre.Click += new System.EventHandler(this.btnBuscarNombre_Click);
             // 
             // btnBuscarApellido
             // 
@@ -235,6 +237,7 @@ namespace Lab06
             this.btnBuscarApellido.TabIndex = 8;
             this.btnBuscarApellido.Text = "Buscar Apellido";
             this.btnBuscarApellido.UseVisualStyleBackColor = true;
+            this.btnBuscarApellido.Click += new System.EventHandler(this.btnBuscarApellido_Click);
             // 
             // btnBuscarContrato
             // 
@@ -244,6 +247,7 @@ namespace Lab06
             this.btnBuscarContrato.TabIndex = 9;
             this.btnBuscarContrato.Text = "Buscar Contrato";
             this.btnBuscarContrato.UseVisualStyleBackColor = true;
+            this.btnBuscarContrato.Click += new System.EventHandler(this.btnBuscarContrato_Click);
             // 
             // btnBuscarInscripcion
             // 
@@ -253,6 +257,7 @@ namespace Lab06
             this.btnBuscarInscripcion.TabIndex = 10;
             this.btnBuscarInscripcion.Text = "Buscar Inscripción";
             this.btnBuscarInscripcion.UseVisualStyleBackColor = true;
+            this.btnBuscarInscripcion.Click += new System.EventHandler(this.btnBuscarInscripcion_Click);
             // 
             // ManPerson
             // 
