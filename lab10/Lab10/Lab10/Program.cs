@@ -15,6 +15,7 @@ namespace Lab10
 
             //Creacion de la consulta
             var query = from p in context.Products
+                        where p.Categories.CategoryName == "Beverages"
                         select p;
 
             //ejecucion de la consulta
