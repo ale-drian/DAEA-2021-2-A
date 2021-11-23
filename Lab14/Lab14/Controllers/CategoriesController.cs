@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Lab14.Models;
 using System.Net;
+using System.Data.Entity;
 
 namespace Lab14.Controllers
 {
@@ -14,7 +15,7 @@ namespace Lab14.Controllers
         // Atributo contexto
         private NorthwindEntities _contexto;
         //PPropiedad contexto
-       public NorthwindEntities Contexto
+        public NorthwindEntities Contexto
         {
             set { _contexto = value; }
             get
@@ -34,24 +35,33 @@ namespace Lab14.Controllers
         // GET: Categories/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var productosPorCategoria = from p in Contexto.Products
+                                        orderby p.ProductName ascending
+                                        where p.CategoryID == id
+                                        select p;
+            return View(productosPorCategoria.ToList());
         }
 
-        // GET: Categories/Create
-        public ActionResult Create()
+    // GET: Categories/Create
+    public ActionResult Create()
         {
             return View();
         }
 
         // POST: Categories/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Categories nuevaCategoria)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    Contexto.Categories.Add(nuevaCategoria);
+                    Contexto.SaveChanges();
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                return View(nuevaCategoria);
             }
             catch
             {
@@ -60,20 +70,33 @@ namespace Lab14.Controllers
         }
 
         // GET: Categories/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Categories categoriaEditar = Contexto.Categories.Find(id);
+
+            if (categoriaEditar == null)
+                return HttpNotFound();
+
+            return View(categoriaEditar);
         }
 
         // POST: Categories/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Categories CategoriaEditar)
         {
             try
             {
-                // TODO: Add update logic here
+                if (ModelState.IsValid)
+                {
+                    Contexto.Entry(CategoriaEditar).State = EntityState.Modified;
+                    Contexto.SaveChanges();
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                return View(CategoriaEditar);
             }
             catch
             {
@@ -82,25 +105,49 @@ namespace Lab14.Controllers
         }
 
         // GET: Categories/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Categories categoriaEliminar = Contexto.Categories.Find(id);
+
+            if (categoriaEliminar == null)
+                return HttpNotFound();
+
+            return View(categoriaEliminar);
         }
 
         // POST: Categories/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int? id, Categories Categoria1)
         {
             try
             {
-                // TODO: Add delete logic here
+                Categories CategoriaEliminar = new Categories();
+                if (ModelState.IsValid)
+                {
+                    if (id == null)
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-                return RedirectToAction("Index");
+                    CategoriaEliminar = Contexto.Categories.Find(id);
+
+                    if (CategoriaEliminar == null)
+                        return HttpNotFound();
+
+                    Contexto.Categories.Remove(CategoriaEliminar);
+                    Contexto.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                return View(CategoriaEliminar);
             }
             catch
             {
                 return View();
             }
+
         }
+
     }
 }

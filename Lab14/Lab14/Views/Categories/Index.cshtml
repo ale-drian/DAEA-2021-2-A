@@ -1,4 +1,4 @@
-﻿@*@using Lab14.Models*@
+﻿
 @model IEnumerable<Lab14.Models.Categories>
 
 @{
@@ -10,12 +10,12 @@
 <p>
     @Html.ActionLink("Nueva Categoria", "Create")
 </p>
-<table>
+<table class="table table-bordered">
     <tr>
         <th>@Html.DisplayNameFor(model => model.CategoryID)</th>
         <th>@Html.DisplayNameFor(model => model.CategoryName)</th>
         <th>@Html.DisplayNameFor(model => model.Description)</th>
-        <th></th>
+        <th>Acciones</th>
     </tr>
     @foreach (var item in Model) { 
         <tr>
@@ -23,9 +23,9 @@
             <td>@Html.DisplayFor(modelItem => item.CategoryName)</td>
             <td>@Html.DisplayFor(modelItem => item.Description)</td>
             <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.CategoryID })
-                @Html.ActionLink("Editar", "Detalles", new { id = item.CategoryID })
-                @Html.ActionLink("Editar", "Borrar", new { id = item.CategoryID })
+                @Html.ActionLink("Editar", "Edit", new { id = item.CategoryID }, new { @class = "btn btn-info" })
+                @Html.ActionLink("Detalles", "Details", new { id = item.CategoryID }, new { @class = "btn btn-warning" })
+                @Html.ActionLink("Borrar", "Delete", new { id = item.CategoryID }, new { @class = "btn btn-danger" })
             </td>
         </tr>
     }
