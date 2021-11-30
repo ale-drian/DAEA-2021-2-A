@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Practica4.Models.Prestamos>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Nuevo Préstamos", "Crear")
+</p>
+<table class="table table-bordered">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.IdPrestamo)</th>
+        <th>@Html.DisplayNameFor(model => model.IdLibro)</th>
+        <th>@Html.DisplayNameFor(model => model.IdUsuario)</th>
+        <th>@Html.DisplayNameFor(model => model.FechaPrestamo)</th>
+        <th>@Html.DisplayNameFor(model => model.FechaDevolucion)</th>
+        <th>Acciones</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>@Html.DisplayFor(modelItem => item.IdPrestamo)</td>
+    <td>@Html.DisplayFor(modelItem => item.IdLibro)</td>
+    <td>@Html.DisplayFor(modelItem => item.IdUsuario)</td>
+    <td>@Html.DisplayFor(modelItem => item.FechaPrestamo)</td>
+    <td>@Html.DisplayFor(modelItem => item.FechaDevolucion)</td>
+    <td>
+        @Html.ActionLink("Editar", "Edit", new { id = item.IdPrestamo }, new { @class = "btn btn-info" })
+        @Html.ActionLink("Detalles", "Details", new { id = item.IdPrestamo }, new { @class = "btn btn-warning" })
+        @Html.ActionLink("Borrar", "Delete", new { id = item.IdPrestamo }, new { @class = "btn btn-danger" })
+    </td>
+</tr>
+    }
+</table>
+
